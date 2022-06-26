@@ -2,7 +2,7 @@
 - 👀 I’m interested in any form of coding colaboration and open source
 - 🌱 I’m currently learning javaSript and some of it's frameworks and libraries
 - 💞️ I’m looking to collaborate on open sourced projects
-- 📫 How to reach me @abdfrfr on twitter
+- 📫 How to reach me @abdulfrfr on twitter
 
 <!---
 hesjscodes/hesjscodes is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
