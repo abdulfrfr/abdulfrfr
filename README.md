@@ -1,4 +1,4 @@
-- 👋 Hi, I’m @hesjscodes
+- 👋 Hi, I’m @abdulfrfr
 - 👀 I’m interested in any form of coding colaboration and open source projects
 - 🌱 I’m currently learning javaSript and some of it's frameworks and libraries
 - 💞️ I’m looking to collaborate on open sourced projects
