@@ -9,37 +9,41 @@ tags: aws, networking, vpc
 
 ---
 
-VPC is an isolated environment where we can deploy our resources and do networking.
+Amazon Web Services (AWS) provides a robust infrastructure for hosting your applications and services, and at the core of this infrastructure is the Virtual Private Cloud (VPC). A VPC serves as an isolated environment where you can deploy your resources and establish networking configurations. In this article, we'll delve into the fundamental components of AWS VPC, shedding light on subnets, Internet Gateways, Route Tables, NAT Gateways, Security Groups, and Network Access Control Lists (NACLs).
 
-Subnet
+**Subnet: Building Blocks of Your Network**
 
-A subnet is a partition of your network. Used for dividing our network into different sections using our vpc’s CIDR. We can have a Public and a Private subnet, as the name implies, A public subnet is a partition of our network where we can deploy our public resources which will have access to and from the internet.
+Subnets are the foundational building blocks of your VPC. Think of them as partitions within your network, designed to segment your VPC resources logically. Subnets are defined using a Classless Inter-Domain Routing (CIDR) notation and serve to divide your network into different sections. Within your VPC, you can create both Public and Private subnets, each with a specific role. As their names suggest, a Public subnet is where you deploy resources with direct internet connectivity, while a Private subnet houses resources isolated from public internet access.
 
-Internet Gateway
+**Internet Gateway: The Gateway to the World Wide Web**
 
-For our VPC to allow traffic into the internet we need what we call an Internet Gateway to be attached to our VPC.
+To enable communication between your VPC and the public internet, you need an Internet Gateway. This essential component acts as the conduit for traffic entering and exiting your VPC. By attaching an Internet Gateway to your VPC, you establish the connectivity required for your public resources to interact with the internet.
 
-Route Tables
+**Route Tables: Navigating Traffic**
 
-This is used to route traffic coming out of our subnet to the specified destination, e.g., routing any traffic trying to go out of our VPC to go through our Internet Gateway.
+Route Tables are instrumental in directing traffic within your VPC. These tables define the path that traffic should follow as it exits a subnet. For instance, a Route Table can be configured to route outbound traffic from your VPC through the attached Internet Gateway, ensuring that resources within your Public subnet can communicate with the internet.
 
-NAT Gateway
+**NAT Gateway: Bridging the Gap for Private Subnets**
 
-A NAT Gateway allows our private subnet to have access to the internet. This is done by using our route table to route traffic going out of our private subnet to go through the NAT Gateway which will be hosted in our public subnet.
+When your VPC includes Private subnets that require internet access but need to remain private, you employ a Network Address Translation (NAT) Gateway. This specialized component allows resources in your Private subnet to access the internet indirectly. Traffic is routed from the Private subnet to the NAT Gateway, which resides in the Public subnet, and then forwarded to the internet. This architecture maintains the security and isolation of your Private resources while granting them necessary internet access.
 
-Security Groups and NACLs
+**Security Groups and NACLs: Guarding Your Resources**
 
-Security Groups is a virtual firewall at our instance level, it allows only rules both inbound and outbound. We open a port and specify the IP address(es) that’s allowed in or out. It is stateful in the sense that, when a request is received, it will recognize that request and send back a response.
+Security Groups and Network Access Control Lists (NACLs) serve as crucial security mechanisms within your VPC.
 
-NACLs is also a virtual firewall at our subnet level, it allows both allow and deny rules, and it’s stateless, unlike our security groups. Here when a request is allowed in, it doesn’t send a response unless we explicitly configure that, it only allows a traffic in or denies a traffic.
+* **Security Groups** function as virtual firewalls at the instance level, regulating both inbound and outbound traffic. They enable you to specify which IP addresses are allowed to communicate with your resources. Security Groups operate in a stateful manner, meaning they can recognize incoming requests and permit corresponding responses.
+    
+* **NACLs**, on the other hand, operate at the subnet level and manage both allow and deny rules for network traffic. Unlike Security Groups, NACLs are stateless, which means they don't inherently recognize response traffic. They primarily serve as access control tools, either permitting or denying traffic based on configured rules.
+    
 
-Now we are going to give a scenario where we will be using all we have explained and I will also provide a diagram to illustrate the explanation for more insights.
+**Putting It All Together: A Scenario**
 
-  
-From the diagram below, we have our VPC with two subnets, a Private and a Public subnet. IN both subnets we deployed an EC2 instance each, and both are secured with a security group, Our public subnets have an NACL firewall securing it. Our VPC also has an Internet Gateway which our public subnet route tables are being routed. And in our Public subnet, a NAT Gateway is deployed where traffic from our Private subnet is being routed using the routing table.
-
-NOTE: The arrow in between our Private and Public subnets indicates that communication between them is private and automatically configured by AWS for us.
+Now, let's illustrate these concepts with a practical scenario. In the diagram below, you'll see a VPC with two subnets: one Private and one Public. Within each subnet, an EC2 instance is deployed, with both instances protected by Security Groups. The Public subnet also has an NACL firewall to enhance security.
 
 ![](https://cdn.hashnode.com/res/hashnode/image/upload/v1693769956814/cb7557db-b644-449b-88cd-51a6d5a8779c.png align="center")
 
-![](https://cdn.hashnode.com/res/hashnode/image/upload/v1693769917825/aaa6df84-ccfe-425a-aa5a-8c673d36c12a.png align="center")
+Additionally, an Internet Gateway is attached to the VPC, facilitating internet access for resources in the Public subnet. To enable internet connectivity for resources in the Private subnet while maintaining isolation, a NAT Gateway is deployed within the Public subnet, and the route tables are configured to direct traffic accordingly.
+
+**Note:** The arrow connecting the Private and Public subnets signifies that AWS automatically configures private communication between these subnets, ensuring secure and seamless interaction.
+
+In conclusion, understanding the core components of AWS VPC is essential for designing secure and scalable cloud architectures. Subnets, Internet Gateways, Route Tables, NAT Gateways, Security Groups, and NACLs provide the necessary tools to craft robust networking solutions within the AWS cloud environment. By leveraging these components effectively, you can build and manage a VPC tailored to your specific requirements.
